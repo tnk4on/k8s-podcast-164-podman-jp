@@ -118,7 +118,7 @@ CRAIG BOX: セキュリティはアプリケーションを書いて動かして
 
 DANIEL WALSH: コンテナの世界でSELinuxの出番があるのは、ホスト情報をコンテナに公開するときだけで、実際にはボリュームですね。ボリュームをコンテナにマウントする場合、基本的にSELinuxのポリシーでは、コンテナのプロセスタイプはコンテナのファイルタイプしか読み書きできないため、そのことを確認する必要があります。
 
-ですから、ホームディレクトリからディレクトリを取り出して、ボリューム経由で(コンテナ内に)貼り付ける場合は、ラベル付けが正しいことを確認する必要があります。私がDockerに取り組んでいた頃、私たちは外部からの受け入れのために「:Z」または「:z」を考え出しました...。
+ですから、ホームディレクトリからディレクトリを取り出して、ボリューム経由で(コンテナ内に)貼り付ける場合は、ラベル付けが正しいことを確認する必要があります。私がDockerに取り組んでいた頃、私たちは外部からの受け入れのために「:Z」または「:z」[^1]を考え出しました...。
 
 CRAIG BOX: 私のために翻訳してくれてありがとう。
 
@@ -135,7 +135,7 @@ CRAIG BOX: I do want to check in on that. A lot of people will consider Docker a
 
 DANIEL WALSH: Going back in my career, I've been working on what I would call container technology, although we didn't use the word container. We used sandboxes. All the way back to basically around 2006, I was working on SELinux at the time. But what we were trying to do is to create these controlled sandboxed environments. And we were introducing into the kernel things like different namespaces. The original one was the mount namespace.
 
-And later, when RHEL 6 came out, I created a thing called the SELinux sandbox. The goal there was to create multiple home directories so that you could run two different versions of Firefox or a web browser, where one would see the internet and the one would see your inter-net.
+And later, when RHEL 6 came out, I created a thing called the SELinux sandbox. The goal there was to create multiple home directories so that you could run two different versions of Firefox or a web browser, where one would see the internet and the one would see your intranet.
 
 And then you isolate those two from each other. And what I was doing there was using mount namespace to create different home directories inside, and then using SELinux to control what was going, basically, access outside. I wasn't smart enough to call this thing a container, but that actually existed way back then.
 
@@ -145,7 +145,7 @@ DANIEL WALSH: Exactly. I also worked on the original version of OpenShift, which
 
 Well, obviously that's opening up a world where we had lots of hostile users getting accounts, and we had to control those accounts. And again, we used SELinux to control those accounts.
 
-Around 2013, we were looking at increasing OpenShift's controls, basically adding in a lot of the namespace stuff that was in the Linux kernel. We created a thing called OpenShift gears. And these things were like containers, basically. So we were working heavily on that. I was working on another thing called oVirt sandbox, virtualization sandbox.
+Around 2013, we were looking at increasing OpenShift's controls, basically adding in a lot of the namespace stuff that was in the Linux kernel. We created a thing called OpenShift gears. And these things were like containers, basically. So we were working heavily on that. I was working on another thing called virt-sandbox, virtualization sandbox.
 
 That's when Docker sort of became the hot thing on the internet, so we pivoted inside of OpenShift and started looking at Docker as basically this new hot technology that everybody in the open source world wanted to use. And very quickly we wanted to get that into RHEL and into OpenShift.
 
@@ -302,7 +302,7 @@ So that's where, really, OCI came about, and OCI obviously allowed us to really 
 So the input and the output, the way we run containers is exactly the same as Docker. And the way the images that we use to run containers are exact, and those are standardized inside of the Open Container Initiative, OCI.
 -->
 
-CRAIG BOX: その頃、Dockerはコンテナイメージの仕様やランタイムの仕様を標準化することに難色を示していましたが、CoreOSのアップストリームプロジェクトによって、コカ・コーラが秘密の成分を公開する必要があると判断するような、いわばペプシのようなものをみんなが揃えることになったのです。この比喩がどこまで通用するかはわかりませんが。これは同時期の出来事ですか？
+CRAIG BOX: その頃、Dockerはコンテナイメージの仕様やランタイムの仕様を標準化することに難色を示していましたが、CoreOSのappCプロジェクト[^2]によって、コカ・コーラが秘密の成分を公開する必要があると判断するような、いわばペプシのようなものをみんなが揃えることになったのです。この比喩がどこまで通用するかはわかりませんが。これは同時期の出来事ですか？
 
 DANIEL WALSH: 当時、CoreOSはまだ別の会社でした。Red Hatの傘下には入っていませんでした。CoreOSは「rkt」パッケージを開発していて、コンテナを実行する代替手段としてそれを推し進めようとしていました。当時、誰もがDockerイメージと呼んでいましたが、コンテナイメージを表現する方法があったのです。
 
@@ -818,3 +818,7 @@ BRENT BAUDE: ありがとうございます。
 DANIEL WALSH: お招きいただきありがとうございました。よかったですね。
 
 CRAIG BOX: Danのツイッターは@rhatdan、Brentのツイッターは@bbaudeでご覧いただけます。Podmanはpodman.ioでご覧いただけます。
+
+---
+[^1]: 音声の発音上は「zed」と発音。翻訳文は実際のコマンドに合わせて表記
+[^2]: https://github.com/appc
